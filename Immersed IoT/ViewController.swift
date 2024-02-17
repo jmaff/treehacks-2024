@@ -6,44 +6,22 @@
 //
 
 import UIKit
-import Metal
-import MetalKit
+import SceneKit
 import ARKit
 
-extension MTKView : RenderDestinationProvider {
-}
+class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate, ARSessionObserver {
 
-class ViewController: UIViewController, MTKViewDelegate, ARSessionDelegate {
-    
-    var session: ARSession!
-    var renderer: Renderer!
-    
+    @IBOutlet var sceneView: ARSCNView!
+    var mutexlock = false;
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Set the view's delegate
-        session = ARSession()
-        session.delegate = self
-        
-        // Set the view to use the default device
-        if let view = self.view as? MTKView {
-            view.device = MTLCreateSystemDefaultDevice()
-            view.backgroundColor = UIColor.clear
-            view.delegate = self
-            
-            guard view.device != nil else {
-                print("Metal is not supported on this device")
-                return
-            }
-            
-            // Configure the renderer to draw to the view
-            renderer = Renderer(session: session, metalDevice: view.device!, renderDestination: view)
-            
-            renderer.drawRectResized(size: view.bounds.size)
-        }
-        
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(ViewController.handleTap(gestureRecognize:)))
-        view.addGestureRecognizer(tapGesture)
+        sceneView.showsStatistics = true
+        sceneView.debugOptions = [ARSCNDebugOptions.showFeaturePoints]
+
+        sceneView.delegate = self
+        sceneView.session.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -51,60 +29,120 @@ class ViewController: UIViewController, MTKViewDelegate, ARSessionDelegate {
         
         // Create a session configuration
         let configuration = ARWorldTrackingConfiguration()
+        configuration.planeDetection = .horizontal
+        configuration.isLightEstimationEnabled = true
+        configuration.worldAlignment = .gravity
 
         // Run the view's session
-        session.run(configuration)
+        sceneView.autoenablesDefaultLighting = true;
+        sceneView.session.run(configuration)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
         // Pause the view's session
-        session.pause()
+        sceneView.session.pause()
     }
     
-    @objc
-    func handleTap(gestureRecognize: UITapGestureRecognizer) {
-        // Create anchor using the camera's current position
-        if let currentFrame = session.currentFrame {
-            
-            // Create a transform with a translation of 0.2 meters in front of the camera
-            var translation = matrix_identity_float4x4
-            translation.columns.3.z = -0.2
-            let transform = simd_mul(currentFrame.camera.transform, translation)
-            
-            // Add a new anchor to the session
-            let anchor = ARAnchor(transform: transform)
-            session.add(anchor: anchor)
-        }
-    }
+//    func updateContentNodeCache(targTransforms: Array<SKWorldTransform>, cameraTransform:SCNMatrix4) {
+//        
+//        for transform in targTransforms {
+//            
+//            let targTransform = SCNMatrix4Mult(transform.transform, cameraTransform);
+//            
+//            if let box = findCube(arucoId: Int(transform.arucoId)) {
+//                box.setWorldTransform(targTransform);
+//                
+//            } else {
+//                
+//                let arucoCube = ArucoNode(arucoId: Int(transform.arucoId))
+//                sceneView.scene.rootNode.addChildNode(arucoCube);
+//                arucoCube.setWorldTransform(targTransform);
+//            }
+//        }
+//    }
     
-    // MARK: - MTKViewDelegate
-    
-    // Called whenever view changes orientation or layout is changed
-    func mtkView(_ view: MTKView, drawableSizeWillChange size: CGSize) {
-        renderer.drawRectResized(size: size)
-    }
-    
-    // Called whenever the view needs to render
-    func draw(in view: MTKView) {
-        renderer.update()
-    }
+//    func findCube(arucoId:Int) -> ArucoNode? {
+//        for node in sceneView.scene.rootNode.childNodes {
+//            if node is ArucoNode {
+//                let box = node as! ArucoNode
+//                if (arucoId == box.id) {
+//                    return box
+//                }
+//            }
+//        }
+//        return nil
+//    }
     
     // MARK: - ARSessionDelegate
+
+    func session(_ session: ARSession, didUpdate frame: ARFrame) {
+        
+        if self.mutexlock {
+            return;
+        }
+
+        self.mutexlock = true;
+        let pixelBuffer = frame.capturedImage
+        
+        // 1) cv::aruco::detectMarkers
+        // 2) cv::aruco::estimatePoseSingleMarkers
+        // 3) transform offset and rotation of marker's corners in OpenGL coords
+        // 4) return them as an array of matrixes
+
+//        let transMatrixArray:Array<SKWorldTransform> = ArucoCV.estimatePose(pixelBuffer, withIntrinsics: frame.camera.intrinsics, andMarkerSize: Float64(ArucoProperty.ArucoMarkerSize)) as! Array<SKWorldTransform>;
+
+        
+//        if(transMatrixArray.count == 0) {
+//            self.mutexlock = false;
+//            return;
+//        }
+
+        let cameraMatrix = SCNMatrix4.init(frame.camera.transform);
+        
+//        DispatchQueue.main.async(execute: {
+//            self.updateContentNodeCache(targTransforms: transMatrixArray, cameraTransform:cameraMatrix)
+//            
+//            self.mutexlock = false;
+//        })
+    }
+    
+    func session(_ session: ARSession, didUpdate anchors: [ARAnchor]) {
+    }
+
+    func session(_ session: ARSession, didAdd anchors: [ARAnchor]) {
+//        NSLog("%s", __FUNC__)
+    }
+    
+    func session(_ session: ARSession, didRemove anchors: [ARAnchor]) {
+    }
+    
+    // MARK: - ARSessionObserver
+
+    func session(_ session: ARSession, cameraDidChangeTrackingState camera: ARCamera) {
+    }
+    
+    // MARK: - ARSCNViewDelegate
+    
+/*
+    // Override to create and configure nodes for anchors added to the view's session.
+    func renderer(_ renderer: SCNSceneRenderer, nodeFor anchor: ARAnchor) -> SCNNode? {
+        let node = SCNNode()
+     
+        return node
+    }
+*/
     
     func session(_ session: ARSession, didFailWithError error: Error) {
         // Present an error message to the user
-        
     }
     
     func sessionWasInterrupted(_ session: ARSession) {
         // Inform the user that the session has been interrupted, for example, by presenting an overlay
-        
     }
     
     func sessionInterruptionEnded(_ session: ARSession) {
         // Reset tracking and/or remove existing anchors if consistent tracking is required
-        
     }
 }

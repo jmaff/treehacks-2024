@@ -8,25 +8,28 @@
 
 /* Begin PBXBuildFile section */
 		5AE570D52B816B35006114D1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE570D42B816B35006114D1 /* AppDelegate.swift */; };
-		5AE570D72B816B35006114D1 /* Shaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = 5AE570D62B816B35006114D1 /* Shaders.metal */; };
-		5AE570DA2B816B35006114D1 /* Renderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE570D92B816B35006114D1 /* Renderer.swift */; };
 		5AE570DC2B816B35006114D1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE570DB2B816B35006114D1 /* ViewController.swift */; };
 		5AE570DF2B816B35006114D1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5AE570DD2B816B35006114D1 /* Main.storyboard */; };
 		5AE570E12B816B36006114D1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5AE570E02B816B36006114D1 /* Assets.xcassets */; };
 		5AE570E42B816B36006114D1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5AE570E22B816B36006114D1 /* LaunchScreen.storyboard */; };
+		5AE570ED2B816BE4006114D1 /* ArucoDetector.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5AE570EC2B816BE4006114D1 /* ArucoDetector.mm */; };
+		5AE570F22B8179B7006114D1 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5AE570EF2B817931006114D1 /* opencv2.framework */; };
+		5AE570F52B817B9D006114D1 /* SKWorldTransform.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5AE570F42B817B9D006114D1 /* SKWorldTransform.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		5AE570D12B816B35006114D1 /* Immersed IoT.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Immersed IoT.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5AE570D42B816B35006114D1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		5AE570D62B816B35006114D1 /* Shaders.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = Shaders.metal; sourceTree = "<group>"; };
-		5AE570D82B816B35006114D1 /* ShaderTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShaderTypes.h; sourceTree = "<group>"; };
-		5AE570D92B816B35006114D1 /* Renderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Renderer.swift; sourceTree = "<group>"; };
 		5AE570DB2B816B35006114D1 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		5AE570DE2B816B35006114D1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		5AE570E02B816B36006114D1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5AE570E32B816B36006114D1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5AE570E52B816B36006114D1 /* Immersed_IoT-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Immersed_IoT-Bridging-Header.h"; sourceTree = "<group>"; };
+		5AE570EC2B816BE4006114D1 /* ArucoDetector.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ArucoDetector.mm; sourceTree = "<group>"; };
+		5AE570EE2B816BF0006114D1 /* ArucoDetector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ArucoDetector.h; sourceTree = "<group>"; };
+		5AE570EF2B817931006114D1 /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = opencv2.framework; sourceTree = "<group>"; };
+		5AE570F32B817A3E006114D1 /* SKWorldTransform.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKWorldTransform.h; sourceTree = "<group>"; };
+		5AE570F42B817B9D006114D1 /* SKWorldTransform.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = SKWorldTransform.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -34,6 +37,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5AE570F22B8179B7006114D1 /* opencv2.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -45,6 +49,7 @@
 			children = (
 				5AE570D32B816B35006114D1 /* Immersed IoT */,
 				5AE570D22B816B35006114D1 /* Products */,
+				5AE570F02B81795D006114D1 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -59,10 +64,8 @@
 		5AE570D32B816B35006114D1 /* Immersed IoT */ = {
 			isa = PBXGroup;
 			children = (
+				5AE570EB2B816BC0006114D1 /* cv */,
 				5AE570D42B816B35006114D1 /* AppDelegate.swift */,
-				5AE570D62B816B35006114D1 /* Shaders.metal */,
-				5AE570D82B816B35006114D1 /* ShaderTypes.h */,
-				5AE570D92B816B35006114D1 /* Renderer.swift */,
 				5AE570DB2B816B35006114D1 /* ViewController.swift */,
 				5AE570DD2B816B35006114D1 /* Main.storyboard */,
 				5AE570E02B816B36006114D1 /* Assets.xcassets */,
@@ -70,6 +73,25 @@
 				5AE570E52B816B36006114D1 /* Immersed_IoT-Bridging-Header.h */,
 			);
 			path = "Immersed IoT";
+			sourceTree = "<group>";
+		};
+		5AE570EB2B816BC0006114D1 /* cv */ = {
+			isa = PBXGroup;
+			children = (
+				5AE570EC2B816BE4006114D1 /* ArucoDetector.mm */,
+				5AE570EE2B816BF0006114D1 /* ArucoDetector.h */,
+				5AE570F32B817A3E006114D1 /* SKWorldTransform.h */,
+				5AE570F42B817B9D006114D1 /* SKWorldTransform.mm */,
+			);
+			path = cv;
+			sourceTree = "<group>";
+		};
+		5AE570F02B81795D006114D1 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				5AE570EF2B817931006114D1 /* opencv2.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -143,10 +165,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5AE570D72B816B35006114D1 /* Shaders.metal in Sources */,
-				5AE570DA2B816B35006114D1 /* Renderer.swift in Sources */,
+				5AE570ED2B816BE4006114D1 /* ArucoDetector.mm in Sources */,
 				5AE570DC2B816B35006114D1 /* ViewController.swift in Sources */,
 				5AE570D52B816B35006114D1 /* AppDelegate.swift in Sources */,
+				5AE570F52B817B9D006114D1 /* SKWorldTransform.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -299,6 +321,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = S2HCNB39W6;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Immersed\\ IoT",
+					"$(PROJECT_DIR)",
+				);
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSCameraUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -307,9 +334,8 @@
 				INFOPLIST_KEY_UIRequiredDeviceCapabilities = "arkit metal";
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UIStatusBarHidden = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationLandscapeRight;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = UIInterfaceOrientationLandscapeRight;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationLandscapeRight;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -332,6 +358,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = S2HCNB39W6;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Immersed\\ IoT",
+					"$(PROJECT_DIR)",
+				);
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSCameraUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -340,9 +371,8 @@
 				INFOPLIST_KEY_UIRequiredDeviceCapabilities = "arkit metal";
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UIStatusBarHidden = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationLandscapeRight;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = UIInterfaceOrientationLandscapeRight;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationLandscapeRight;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
