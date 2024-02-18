@@ -64,3 +64,5 @@ fastlane/test_output
 iOSInjectionProject/
 
 opencv2.framework/*
+
+*.DS_Store
