@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5A65FC382B8233EC001B96E6 /* powerbutton_white.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A65FC372B8233EB001B96E6 /* powerbutton_white.png */; };
 		5AE570D52B816B35006114D1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE570D42B816B35006114D1 /* AppDelegate.swift */; };
 		5AE570DC2B816B35006114D1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE570DB2B816B35006114D1 /* ViewController.swift */; };
 		5AE570DF2B816B35006114D1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5AE570DD2B816B35006114D1 /* Main.storyboard */; };
@@ -24,6 +25,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5A65FC372B8233EB001B96E6 /* powerbutton_white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = powerbutton_white.png; sourceTree = "<group>"; };
 		5AE570D12B816B35006114D1 /* Immersed IoT.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Immersed IoT.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5AE570D42B816B35006114D1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5AE570DB2B816B35006114D1 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -84,6 +86,7 @@
 				5AE570DD2B816B35006114D1 /* Main.storyboard */,
 				5AE570E02B816B36006114D1 /* Assets.xcassets */,
 				5AE8210B2B81DC9000015BA7 /* powerbutton.png */,
+				5A65FC372B8233EB001B96E6 /* powerbutton_white.png */,
 				5AE570E22B816B36006114D1 /* LaunchScreen.storyboard */,
 				5AE570E52B816B36006114D1 /* Immersed_IoT-Bridging-Header.h */,
 				5AE570F62B8181F1006114D1 /* TagNode.swift */,
@@ -173,6 +176,7 @@
 				5AE570E42B816B36006114D1 /* LaunchScreen.storyboard in Resources */,
 				5AE570E12B816B36006114D1 /* Assets.xcassets in Resources */,
 				5AE570DF2B816B35006114D1 /* Main.storyboard in Resources */,
+				5A65FC382B8233EC001B96E6 /* powerbutton_white.png in Resources */,
 				5AE8210C2B81DC9000015BA7 /* powerbutton.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

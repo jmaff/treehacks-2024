@@ -95,6 +95,9 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate, AR
         let hitTestResults = sceneView.hitTest(location, options: nil)
 
         for result in hitTestResults {
+            if let nodeName = result.node.name, nodeName == Thing.getButtonName(tagID: 55) {
+                fetchThingAndUpdateDictionary(tagID: 55)
+            }
             if let nodeName = result.node.name, nodeName == Thing.getButtonName(tagID: 77) {
                 print("Button pressed!")
                 let requestData: [String: Any] = ["tagID": 77, "functionName": "LED"]
@@ -215,6 +218,8 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate, AR
                 let tag = node as! TagNode
                 if tag.hasExpired() {
                     node.removeFromParentNode()
+                } else if tag.needsUpdate() {
+                    fetchThingAndUpdateDictionary(tagID: tag.id)
                 }
             }
         }

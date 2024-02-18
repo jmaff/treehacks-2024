@@ -19,6 +19,7 @@ class TagNode : SCNNode {
     private var buttonLabelNode: SCNNode?
     
     var lastSeen: TimeInterval?
+    var lastUpdated: TimeInterval?
     
     init(thing: Thing, size: CGFloat) {
         self.id = thing.tagID
@@ -122,17 +123,31 @@ class TagNode : SCNNode {
     
     func updateFromThing(thing: Thing) {
         if thing.type.lowercased() == "led" {
-            setButtonLabelImage(filename: "powerbutton.png")
+            setButtonLabelImage(filename: "powerbutton_white.png")
         } else if thing.type != "Loading..." {
             setButtonLabelData(data: thing.mostRecentState)
         }
 
         setTitleName(title: String(format: "%@ (Tag #%d)", thing.type, thing.tagID))
+        lastUpdated = Date().timeIntervalSince1970
         
     }
     
     func seen() {
         lastSeen = Date().timeIntervalSince1970
+    }
+    
+    func needsUpdate() -> Bool {
+        guard let lastCheckTimestamp = lastUpdated else {
+            // If there is no last check timestamp, consider it has been more than 5 seconds
+            return true
+        }
+
+        let currentTime = Date().timeIntervalSince1970
+        let elapsedTime = currentTime - lastCheckTimestamp
+
+//        return elapsedTime > 10
+        return false
     }
 
     func hasExpired() -> Bool {
