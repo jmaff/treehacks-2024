@@ -10,4 +10,5 @@
 //
 
 #import "TagDetector.h"
+#import "SKWorldTransform.h"
 

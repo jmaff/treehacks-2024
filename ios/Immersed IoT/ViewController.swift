@@ -13,6 +13,8 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate, AR
 
     @IBOutlet var sceneView: ARSCNView!
     var mutexlock = false;
+    
+    let ArucoMarkerSize = 0.133;
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,35 +47,35 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate, AR
         sceneView.session.pause()
     }
     
-//    func updateContentNodeCache(targTransforms: Array<SKWorldTransform>, cameraTransform:SCNMatrix4) {
-//        
-//        for transform in targTransforms {
-//            
-//            let targTransform = SCNMatrix4Mult(transform.transform, cameraTransform);
-//            
-//            if let box = findCube(arucoId: Int(transform.arucoId)) {
-//                box.setWorldTransform(targTransform);
-//                
-//            } else {
-//                
-//                let arucoCube = ArucoNode(arucoId: Int(transform.arucoId))
-//                sceneView.scene.rootNode.addChildNode(arucoCube);
-//                arucoCube.setWorldTransform(targTransform);
-//            }
-//        }
-//    }
+    func updateContentNodeCache(targTransforms: Array<SKWorldTransform>, cameraTransform:SCNMatrix4) {
+        
+        for transform in targTransforms {
+            
+            let targTransform = SCNMatrix4Mult(transform.transform, cameraTransform);
+            
+            if let box = findCube(arucoId: Int(transform.arucoId)) {
+                box.setWorldTransform(targTransform);
+                
+            } else {
+                
+                let arucoCube = TagNode(id: Int(transform.arucoId), size: ArucoMarkerSize)
+                sceneView.scene.rootNode.addChildNode(arucoCube);
+                arucoCube.setWorldTransform(targTransform);
+            }
+        }
+    }
     
-//    func findCube(arucoId:Int) -> ArucoNode? {
-//        for node in sceneView.scene.rootNode.childNodes {
-//            if node is ArucoNode {
-//                let box = node as! ArucoNode
-//                if (arucoId == box.id) {
-//                    return box
-//                }
-//            }
-//        }
-//        return nil
-//    }
+    func findCube(arucoId:Int) -> TagNode? {
+        for node in sceneView.scene.rootNode.childNodes {
+            if node is TagNode {
+                let box = node as! TagNode
+                if (arucoId == box.id) {
+                    return box
+                }
+            }
+        }
+        return nil
+    }
     
     // MARK: - ARSessionDelegate
 
@@ -85,27 +87,21 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate, AR
 
         self.mutexlock = true;
         let pixelBuffer = frame.capturedImage
-        
-        // 1) cv::aruco::detectMarkers
-        // 2) cv::aruco::estimatePoseSingleMarkers
-        // 3) transform offset and rotation of marker's corners in OpenGL coords
-        // 4) return them as an array of matrixes
 
-//        let transMatrixArray:Array<SKWorldTransform> = ArucoCV.estimatePose(pixelBuffer, withIntrinsics: frame.camera.intrinsics, andMarkerSize: Float64(ArucoProperty.ArucoMarkerSize)) as! Array<SKWorldTransform>;
+        let transMatrixArray:Array<SKWorldTransform> = TagDetector.estimatePose(pixelBuffer, withIntrinsics: frame.camera.intrinsics, andMarkerSize: Float64(ArucoMarkerSize)) as! Array<SKWorldTransform>;
 
-        
-//        if(transMatrixArray.count == 0) {
-//            self.mutexlock = false;
-//            return;
-//        }
+        if(transMatrixArray.count == 0) {
+            self.mutexlock = false;
+            return;
+        }
 
         let cameraMatrix = SCNMatrix4.init(frame.camera.transform);
         
-//        DispatchQueue.main.async(execute: {
-//            self.updateContentNodeCache(targTransforms: transMatrixArray, cameraTransform:cameraMatrix)
-//            
-//            self.mutexlock = false;
-//        })
+        DispatchQueue.main.async(execute: {
+            self.updateContentNodeCache(targTransforms: transMatrixArray, cameraTransform:cameraMatrix)
+            
+            self.mutexlock = false;
+        })
     }
     
     func session(_ session: ARSession, didUpdate anchors: [ARAnchor]) {

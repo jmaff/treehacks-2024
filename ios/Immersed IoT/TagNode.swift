@@ -1,5 +1,5 @@
 //
-//  ArucoTagNode.swift
+//  TagNode.swift
 //  Immersed IoT
 //
 //  Created by Joseph Maffetone on 2/17/24.

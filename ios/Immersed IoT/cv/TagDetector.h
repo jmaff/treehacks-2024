@@ -1,5 +1,5 @@
 //
-//  OpenCVWrapper.h
+//  TagDetector.h
 //  Immersed IoT
 //
 //  Created by Joseph Maffetone on 2/17/24.

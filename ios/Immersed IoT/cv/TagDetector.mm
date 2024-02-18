@@ -1,5 +1,5 @@
 //
-//  OpenCVWrapper.m
+//  TagDetector.mm
 //  Immersed IoT
 //
 //  Created by Joseph Maffetone on 2/17/24.
@@ -34,7 +34,7 @@ static cv::Mat rotateRodriques(cv::Mat &rotMat, cv::Vec3d &tvecs) {
     extrinsics.at<double>(3,3) = 1;
 
     // Convert Opencv coords to OpenGL coords
-    extrinsics = [ArucoCV GetCVToGLMat] * extrinsics;
+    extrinsics = [TagDetector GetCVToGLMat] * extrinsics;
     return extrinsics;
 }
 
@@ -52,7 +52,7 @@ static void detect(std::vector<std::vector<cv::Point2f> > &corners, std::vector<
     CVPixelBufferUnlockBaseAddress(pixelBuffer, 0);
 }
 
-+(NSMutableArray *) estimatePose:(CVPixelBufferRef)pixelBuffer withIntrinsics:(matrix_float3x3)intrinsics {
++(NSMutableArray *) estimatePose:(CVPixelBufferRef)pixelBuffer withIntrinsics:(matrix_float3x3)intrinsics andMarkerSize:(Float64)markerSize {
     std::vector<int> ids;
     std::vector<std::vector<cv::Point2f>> corners;
     detect(corners, ids, pixelBuffer);
@@ -83,7 +83,7 @@ static void detect(std::vector<std::vector<cv::Point2f> > &corners, std::vector<
     for (int i = 0; i < rvecs.size(); i++) {
         cv::Rodrigues(rvecs[i], rotMat);
         cv::Mat extrinsics = rotateRodriques(rotMat, tvecs[i]);
-        SCNMatrix4 scnMatrix = [ArucoCV transformToSceneKitMatrix:extrinsics];
+        SCNMatrix4 scnMatrix = [TagDetector transformToSceneKitMatrix:extrinsics];
         SKWorldTransform *transform = [SKWorldTransform new];
         transform.arucoId = ids[i];
         transform.transform = scnMatrix;
