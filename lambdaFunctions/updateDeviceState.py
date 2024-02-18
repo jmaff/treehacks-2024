@@ -1,5 +1,5 @@
-import requests
 import json
+import requests
 from pymongo import MongoClient
 from secret_info import mongo_username, mongo_password, particle_token
 
@@ -7,31 +7,25 @@ from secret_info import mongo_username, mongo_password, particle_token
 
 def lambda_handler(event, context):
     body = json.loads(event['body'])
-    tagID = body['tagID']
+
     # Connect to MongoDB Atlas
     cluster = MongoClient(f"mongodb+srv://{mongo_username}:{mongo_password}@cluster0.mckkmip.mongodb.net/?retryWrites=true&w=majority")
     db = cluster["treehacks_2024"]
     collection = db["iot_data"]
-    functionName = body['functionName']
     
+    filter = {"particleID": body['coreid']}
+    new_val = float(body['data'])
+    update = {"$set": {"mostRecentState": new_val}}
     # Query MongoDB Atlas with the provided ID
-    result = collection.find_one({'tagID':tagID})
-    device_id = result['particleID']
 
+    result = collection.find_one_and_update(filter, update, return_document=True)
+    if result is not None:
+        del result["_id"]
+ 
     # Close the MongoDB Atlas connection
     cluster.close()
 
-    # API endpoint URL
-    url = f'https://api.particle.io/v1/devices/{device_id}/{functionName}'
-
-    # Set up headers with authorization token
-    payload = {'arg':'', 'access_token': particle_token}
-
-    # Make a POST request to an API endpoint
-    response = requests.post(url, data=payload)
-
-    return json.dumps("")
-
-# if __name__ == "__main__":
-#     event = {'id': '0', 'functionName': 'LED'}
-#     lambda_handler(event, 0)
+    return {
+        'statusCode': 200,
+        'body': json.dumps(result)  # Return the query result
+    }
