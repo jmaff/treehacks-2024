@@ -12,7 +12,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface OpenCVWrapper : NSObject
+@interface TagDetector : NSObject
 
 // 1) cv::aruco::detectMarkers
 // 2) cv::aruco::estimatePoseSingleMarkers

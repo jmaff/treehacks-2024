@@ -12,9 +12,10 @@
 		5AE570DF2B816B35006114D1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5AE570DD2B816B35006114D1 /* Main.storyboard */; };
 		5AE570E12B816B36006114D1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5AE570E02B816B36006114D1 /* Assets.xcassets */; };
 		5AE570E42B816B36006114D1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5AE570E22B816B36006114D1 /* LaunchScreen.storyboard */; };
-		5AE570ED2B816BE4006114D1 /* ArucoDetector.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5AE570EC2B816BE4006114D1 /* ArucoDetector.mm */; };
+		5AE570ED2B816BE4006114D1 /* TagDetector.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5AE570EC2B816BE4006114D1 /* TagDetector.mm */; };
 		5AE570F22B8179B7006114D1 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5AE570EF2B817931006114D1 /* opencv2.framework */; };
 		5AE570F52B817B9D006114D1 /* SKWorldTransform.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5AE570F42B817B9D006114D1 /* SKWorldTransform.mm */; };
+		5AE570F72B8181F1006114D1 /* TagNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE570F62B8181F1006114D1 /* TagNode.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,11 +26,12 @@
 		5AE570E02B816B36006114D1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5AE570E32B816B36006114D1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5AE570E52B816B36006114D1 /* Immersed_IoT-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Immersed_IoT-Bridging-Header.h"; sourceTree = "<group>"; };
-		5AE570EC2B816BE4006114D1 /* ArucoDetector.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ArucoDetector.mm; sourceTree = "<group>"; };
-		5AE570EE2B816BF0006114D1 /* ArucoDetector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ArucoDetector.h; sourceTree = "<group>"; };
+		5AE570EC2B816BE4006114D1 /* TagDetector.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = TagDetector.mm; sourceTree = "<group>"; };
+		5AE570EE2B816BF0006114D1 /* TagDetector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TagDetector.h; sourceTree = "<group>"; };
 		5AE570EF2B817931006114D1 /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = opencv2.framework; sourceTree = "<group>"; };
 		5AE570F32B817A3E006114D1 /* SKWorldTransform.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKWorldTransform.h; sourceTree = "<group>"; };
 		5AE570F42B817B9D006114D1 /* SKWorldTransform.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = SKWorldTransform.mm; sourceTree = "<group>"; };
+		5AE570F62B8181F1006114D1 /* TagNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagNode.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +73,7 @@
 				5AE570E02B816B36006114D1 /* Assets.xcassets */,
 				5AE570E22B816B36006114D1 /* LaunchScreen.storyboard */,
 				5AE570E52B816B36006114D1 /* Immersed_IoT-Bridging-Header.h */,
+				5AE570F62B8181F1006114D1 /* TagNode.swift */,
 			);
 			path = "Immersed IoT";
 			sourceTree = "<group>";
@@ -78,8 +81,8 @@
 		5AE570EB2B816BC0006114D1 /* cv */ = {
 			isa = PBXGroup;
 			children = (
-				5AE570EC2B816BE4006114D1 /* ArucoDetector.mm */,
-				5AE570EE2B816BF0006114D1 /* ArucoDetector.h */,
+				5AE570EC2B816BE4006114D1 /* TagDetector.mm */,
+				5AE570EE2B816BF0006114D1 /* TagDetector.h */,
 				5AE570F32B817A3E006114D1 /* SKWorldTransform.h */,
 				5AE570F42B817B9D006114D1 /* SKWorldTransform.mm */,
 			);
@@ -165,7 +168,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5AE570ED2B816BE4006114D1 /* ArucoDetector.mm in Sources */,
+				5AE570ED2B816BE4006114D1 /* TagDetector.mm in Sources */,
+				5AE570F72B8181F1006114D1 /* TagNode.swift in Sources */,
 				5AE570DC2B816B35006114D1 /* ViewController.swift in Sources */,
 				5AE570D52B816B35006114D1 /* AppDelegate.swift in Sources */,
 				5AE570F52B817B9D006114D1 /* SKWorldTransform.mm in Sources */,
