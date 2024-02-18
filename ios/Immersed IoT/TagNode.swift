@@ -16,6 +16,7 @@ class TagNode : SCNNode {
     
     private var planeGeometry: SCNPlane!
     private var buttonNode: SCNNode!
+    var lastSeen: TimeInterval?
     
     init(id: Int, size: CGFloat) {
         self.id = id
@@ -81,6 +82,22 @@ class TagNode : SCNNode {
         planeNode.position = SCNVector3(0, 0, 0.002)
         planeNode.scale = SCNVector3(0.5, 0.5, 0.5)
         addChildNode(planeNode)
+    }
+    
+    func seen() {
+        lastSeen = Date().timeIntervalSince1970
+    }
+
+    func hasExpired() -> Bool {
+        guard let lastCheckTimestamp = lastSeen else {
+            // If there is no last check timestamp, consider it has been more than 5 seconds
+            return true
+        }
+
+        let currentTime = Date().timeIntervalSince1970
+        let elapsedTime = currentTime - lastCheckTimestamp
+
+        return elapsedTime > 5
     }
     
     required init?(coder: NSCoder) {

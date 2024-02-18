@@ -73,12 +73,12 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate, AR
             
             if let box = findCube(arucoId: Int(transform.arucoId)) {
                 box.setWorldTransform(targTransform);
-                
+                box.seen()
             } else {
-                
                 let arucoCube = TagNode(id: Int(transform.arucoId), size: ArucoMarkerSize)
                 sceneView.scene.rootNode.addChildNode(arucoCube);
                 arucoCube.setWorldTransform(targTransform);
+                arucoCube.seen()
             }
         }
     }
@@ -104,6 +104,15 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate, AR
         }
 
         self.mutexlock = true;
+        for node in sceneView.scene.rootNode.childNodes {
+            if node is TagNode {
+                let tag = node as! TagNode
+                if tag.hasExpired() {
+                    node.removeFromParentNode()
+                }
+            }
+        }
+        
         let pixelBuffer = frame.capturedImage
 
         let transMatrixArray:Array<SKWorldTransform> = TagDetector.estimatePose(pixelBuffer, withIntrinsics: frame.camera.intrinsics, andMarkerSize: Float64(ArucoMarkerSize)) as! Array<SKWorldTransform>;
