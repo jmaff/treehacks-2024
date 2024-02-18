@@ -3,3 +3,7 @@
 secret_info.py
 
 myenv/
+
+.DS_Store
+
+__pycache__
