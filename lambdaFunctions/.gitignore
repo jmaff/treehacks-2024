@@ -1,0 +1,5 @@
+*.sh
+*.zip
+secret_info.py
+
+myenv/
