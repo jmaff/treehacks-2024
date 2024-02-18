@@ -76,7 +76,7 @@ static void detect(std::vector<std::vector<cv::Point2f> > &corners, std::vector<
     std::vector<cv::Vec3d> rvecs, tvecs;
     cv::Mat distCoeffs = cv::Mat::zeros(8, 1, CV_64F);
     cv::aruco::estimatePoseSingleMarkers(corners, markerSize, intrinMat, distCoeffs, rvecs, tvecs);
-    NSLog(@"found: rvecs.size(): %lu", rvecs.size());
+//    NSLog(@"found: rvecs.size(): %lu", rvecs.size());
     
 
     cv::Mat rotMat, tranMat;

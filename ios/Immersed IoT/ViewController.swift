@@ -24,6 +24,24 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate, AR
 
         sceneView.delegate = self
         sceneView.session.delegate = self
+        
+        sceneView.isUserInteractionEnabled = true
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
+        sceneView.addGestureRecognizer(tapGesture)
+        
+        
+    }
+    
+    @objc func handleTap(_ gesture: UITapGestureRecognizer) {
+        let location = gesture.location(in: sceneView)
+        let hitTestResults = sceneView.hitTest(location, options: nil)
+
+        for result in hitTestResults {
+            if let nodeName = result.node.name, nodeName == "button" {
+                print("Button pressed!")
+            }
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {

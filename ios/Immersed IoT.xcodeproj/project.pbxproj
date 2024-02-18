@@ -18,6 +18,8 @@
 		5AE570F72B8181F1006114D1 /* TagNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE570F62B8181F1006114D1 /* TagNode.swift */; };
 		5AE570F92B819D36006114D1 /* ThingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE570F82B819D36006114D1 /* ThingView.swift */; };
 		5AE570FB2B81B622006114D1 /* ClickableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE570FA2B81B622006114D1 /* ClickableView.swift */; };
+		5AE570FD2B81C37A006114D1 /* DetailScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE570FC2B81C37A006114D1 /* DetailScene.swift */; };
+		5AE8210C2B81DC9000015BA7 /* powerbutton.png in Resources */ = {isa = PBXBuildFile; fileRef = 5AE8210B2B81DC9000015BA7 /* powerbutton.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +38,8 @@
 		5AE570F62B8181F1006114D1 /* TagNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagNode.swift; sourceTree = "<group>"; };
 		5AE570F82B819D36006114D1 /* ThingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThingView.swift; sourceTree = "<group>"; };
 		5AE570FA2B81B622006114D1 /* ClickableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClickableView.swift; sourceTree = "<group>"; };
+		5AE570FC2B81C37A006114D1 /* DetailScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailScene.swift; sourceTree = "<group>"; };
+		5AE8210B2B81DC9000015BA7 /* powerbutton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = powerbutton.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,6 +57,7 @@
 		5AE570C82B816B35006114D1 = {
 			isa = PBXGroup;
 			children = (
+				5AE570FC2B81C37A006114D1 /* DetailScene.swift */,
 				5AE570D32B816B35006114D1 /* Immersed IoT */,
 				5AE570D22B816B35006114D1 /* Products */,
 				5AE570F02B81795D006114D1 /* Frameworks */,
@@ -75,6 +80,7 @@
 				5AE570DB2B816B35006114D1 /* ViewController.swift */,
 				5AE570DD2B816B35006114D1 /* Main.storyboard */,
 				5AE570E02B816B36006114D1 /* Assets.xcassets */,
+				5AE8210B2B81DC9000015BA7 /* powerbutton.png */,
 				5AE570E22B816B36006114D1 /* LaunchScreen.storyboard */,
 				5AE570E52B816B36006114D1 /* Immersed_IoT-Bridging-Header.h */,
 				5AE570F62B8181F1006114D1 /* TagNode.swift */,
@@ -164,6 +170,7 @@
 				5AE570E42B816B36006114D1 /* LaunchScreen.storyboard in Resources */,
 				5AE570E12B816B36006114D1 /* Assets.xcassets in Resources */,
 				5AE570DF2B816B35006114D1 /* Main.storyboard in Resources */,
+				5AE8210C2B81DC9000015BA7 /* powerbutton.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -179,6 +186,7 @@
 				5AE570DC2B816B35006114D1 /* ViewController.swift in Sources */,
 				5AE570F92B819D36006114D1 /* ThingView.swift in Sources */,
 				5AE570D52B816B35006114D1 /* AppDelegate.swift in Sources */,
+				5AE570FD2B81C37A006114D1 /* DetailScene.swift in Sources */,
 				5AE570F52B817B9D006114D1 /* SKWorldTransform.mm in Sources */,
 				5AE570FB2B81B622006114D1 /* ClickableView.swift in Sources */,
 			);

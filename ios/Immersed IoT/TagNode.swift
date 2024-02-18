@@ -14,49 +14,73 @@ class TagNode : SCNNode {
     public let id: Int
     var size: CGFloat
     
+    private var planeGeometry: SCNPlane!
+    private var buttonNode: SCNNode!
+    
     init(id: Int, size: CGFloat) {
         self.id = id
         self.size = size
         
         super.init()
         
-        // TODO: replace with interactive View
-//        self.geometry = SCNBox(width: size, height: size, length: 0.05, chamferRadius: 0)
-        
-        self.geometry = SCNPlane(width: size, height: size)
-        
-        //2. Create A New Material
+        planeGeometry = SCNPlane(width: 0.15, height: 0.15)
+        planeGeometry.cornerRadius = 0.02
         let material = SCNMaterial()
-
-        //3. Create A UIView As A Holder For Content
-        let viewToAdd = UIView(frame: CGRect(x: 150, y: 150, width: 300, height: 300))
-        viewToAdd.backgroundColor = .white
-
-        //4. Create Two Subviews
-        let thingView = ThingView()
-        viewToAdd.addSubview(thingView)
-//        let redView = UIView(frame: CGRect(x: 10, y: 10, width: 100, height: 100))
-//        redView.backgroundColor = .red
-//        viewToAdd.addSubview(redView)
-//
-//        let cyanView = UIView(frame: CGRect(x: 110, y: 10, width: 100, height: 100))
-//        cyanView.backgroundColor = .cyan
-//        viewToAdd.addSubview(cyanView)
-
-        //5. Set The Materials Contents
-        material.diffuse.contents = viewToAdd
-
-        //6. Set The 1st Material Of The Plane
-        self.geometry?.firstMaterial = material
+        
+        material.diffuse.contents = UIColor.gray
+        material.transparency = 0.5 // Set the transparency level (0.0 to 1.0)
+        material.lightingModel = .physicallyBased
         material.isDoubleSided = true
         
-//        self.geometry = SCNPlane(width: size, height: size)
-//        self.geometry?.firstMaterial?.diffuse.contents = thingView
-//        self.geometry?.firstMaterial?.isDoubleSided = true
+        planeGeometry.materials = [material]
+
+        let planeNode = SCNNode(geometry: planeGeometry)
+        addChildNode(planeNode)
         
-//        let mat = SCNMaterial()
-//        mat.diffuse.contents = UIColor.blue
-//        self.geometry?.materials = [mat]
+        let buttonGeometry = SCNPlane(width: 0.1, height: 0.1)
+        buttonGeometry.cornerRadius = 1
+        let buttonMaterial = SCNMaterial()
+        
+        buttonMaterial.diffuse.contents = UIColor.white
+        buttonMaterial.transparency = 0.5 // Set the transparency level (0.0 to 1.0)
+        buttonMaterial.lightingModel = .physicallyBased
+        buttonMaterial.isDoubleSided = true
+        
+        buttonGeometry.materials = [buttonMaterial]
+
+        buttonNode = SCNNode(geometry: buttonGeometry)
+        buttonNode.position = SCNVector3(0, 0, 0.001) // Adjust the position as needed
+        buttonNode.name = "button"
+        
+//        let labelGeometry = SCNText(string: "Toggle", extrusionDepth: 0.5)
+//        labelGeometry.scale = SCNVector3(0.01,0.01,0.01)
+//        labelGeometry.font = UIFont.systemFont(ofSize: 1)
+//        labelGeometry.flatness = 0.1
+        
+//        let labelMaterial = SCNMaterial()
+//        labelMaterial.diffuse.contents = UIColor.blue
+//        
+//        labelGeometry.materials = [labelMaterial]
+//        
+//        let labelNode = SCNNode(geometry: labelGeometry)
+//        labelNode.position = SCNVector3(0, 0, 0.01)
+//        labelNode.scale = SCNVector3(0.001,0.001,0.001)
+
+        addChildNode(buttonNode)
+        addButtonLabel()
+    }
+    
+    func addButtonLabel() {
+        let iconImage = UIImage(named: "powerbutton.png")
+        let planeGeometry = SCNPlane(width: size, height: size)
+        let imageMaterial = SCNMaterial()
+        imageMaterial.diffuse.contents = iconImage
+        planeGeometry.materials = [imageMaterial]
+
+        let planeNode = SCNNode(geometry: planeGeometry)
+        planeNode.position = SCNVector3(0, 0, 0.002)
+        planeNode.scale = SCNVector3(0.5, 0.5, 0.5)
+        addChildNode(planeNode)
     }
     
     required init?(coder: NSCoder) {
