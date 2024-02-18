@@ -15,6 +15,63 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate, AR
     var mutexlock = false;
     
     let ArucoMarkerSize = 0.133;
+    
+    // tagID -> Thing
+    var things: [Int: Thing] = [
+        77: Thing(tagID: 77, particleID: "todo", type: "Loading...", mostRecentState: 0.0),
+        55: Thing(tagID: 55, particleID: "todo", type: "Loading...", mostRecentState: 0.0),
+    ]
+    
+    func fetchThingAndUpdateDictionary(tagID: Int) {
+        let requestData: [String: Any] = ["tagID": tagID]
+
+        if let url = URL(string: "https://5vq78p52f0.execute-api.us-east-1.amazonaws.com/prod/getDeviceState") {
+            var request = URLRequest(url: url)
+            request.httpMethod = "POST"
+            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+
+            do {
+                request.httpBody = try JSONSerialization.data(withJSONObject: requestData, options: [])
+            } catch {
+                print("Error encoding JSON: \(error)")
+                return
+            }
+
+            let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+                if let error = error {
+                    print("Error: \(error)")
+                    return
+                }
+
+                // Process the data or response here
+                if let data = data {
+                    // Parse the response data, e.g., decode JSON
+                    do {
+                        let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
+                        print("Response JSON: \(json ?? [:])")
+                    } catch {
+                        print("Error decoding JSON: \(error)")
+                    }
+
+                    do {
+                        let decodedThing = try JSONDecoder().decode(Thing.self, from: data)
+
+                        // Update or add the Thing to the dictionary
+                        self.things[tagID] = decodedThing
+                        if let node = self.findTagNode(arucoId: tagID) {
+                            node.updateFromThing(thing: decodedThing)
+                        }
+                        print("Successfully fetched and updated the Thing.")
+                    } catch {
+                        print("Error decoding JSON: \(error)")
+                    }
+                }
+        }
+
+            // Start the data task
+            task.resume()
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,8 +95,43 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate, AR
         let hitTestResults = sceneView.hitTest(location, options: nil)
 
         for result in hitTestResults {
-            if let nodeName = result.node.name, nodeName == "button" {
+            if let nodeName = result.node.name, nodeName == Thing.getButtonName(tagID: 77) {
                 print("Button pressed!")
+                let requestData: [String: Any] = ["tagID": 77, "functionName": "LED"]
+
+                if let url = URL(string: "https://5vq78p52f0.execute-api.us-east-1.amazonaws.com/prod/toggleDevice") {
+                    var request = URLRequest(url: url)
+                    request.httpMethod = "POST"
+                    request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+
+                    do {
+                        request.httpBody = try JSONSerialization.data(withJSONObject: requestData, options: [])
+                    } catch {
+                        print("Error encoding JSON: \(error)")
+                        return
+                    }
+
+                    let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+                        if let error = error {
+                            print("Error: \(error)")
+                            return
+                        }
+
+                        // Process the data or response here
+                        if let data = data {
+                            // Parse the response data, e.g., decode JSON
+                            do {
+                                let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
+                                print("Response JSON: \(json ?? [:])")
+                            } catch {
+                                print("Error decoding JSON: \(error)")
+                            }
+                        }
+                    }
+
+                    // Start the data task
+                    task.resume()
+                }
             }
         }
     }
@@ -70,20 +162,34 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate, AR
         for transform in targTransforms {
             
             let targTransform = SCNMatrix4Mult(transform.transform, cameraTransform);
+            let tagID = Int(transform.arucoId)
             
-            if let box = findCube(arucoId: Int(transform.arucoId)) {
+            if let box = findTagNode(arucoId: Int(transform.arucoId)) {
                 box.setWorldTransform(targTransform);
                 box.seen()
             } else {
-                let arucoCube = TagNode(id: Int(transform.arucoId), size: ArucoMarkerSize)
-                sceneView.scene.rootNode.addChildNode(arucoCube);
-                arucoCube.setWorldTransform(targTransform);
-                arucoCube.seen()
+                let thing = things[tagID] ?? Thing(tagID: Int(transform.arucoId), particleID: "", type: "Loading...", mostRecentState: 0.0)
+                
+                if things[tagID] == nil {
+                    print(String(format: "New Tag ID %d", Int(transform.arucoId)))
+                }
+                things[thing.tagID] = thing
+                
+                let tagNode = TagNode(thing: thing, size: ArucoMarkerSize)
+                sceneView.scene.rootNode.addChildNode(tagNode);
+                
+                tagNode.setWorldTransform(targTransform);
+                tagNode.seen()
+                
+                Task.detached {
+                    try await self.fetchThingAndUpdateDictionary(tagID: tagID)
+                    print("API responded")
+                }
             }
         }
     }
     
-    func findCube(arucoId:Int) -> TagNode? {
+    func findTagNode(arucoId:Int) -> TagNode? {
         for node in sceneView.scene.rootNode.childNodes {
             if node is TagNode {
                 let box = node as! TagNode
@@ -112,7 +218,6 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate, AR
                 }
             }
         }
-        
         let pixelBuffer = frame.capturedImage
 
         let transMatrixArray:Array<SKWorldTransform> = TagDetector.estimatePose(pixelBuffer, withIntrinsics: frame.camera.intrinsics, andMarkerSize: Float64(ArucoMarkerSize)) as! Array<SKWorldTransform>;

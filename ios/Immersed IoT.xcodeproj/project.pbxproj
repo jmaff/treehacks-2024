@@ -20,6 +20,7 @@
 		5AE570FB2B81B622006114D1 /* ClickableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE570FA2B81B622006114D1 /* ClickableView.swift */; };
 		5AE570FD2B81C37A006114D1 /* DetailScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE570FC2B81C37A006114D1 /* DetailScene.swift */; };
 		5AE8210C2B81DC9000015BA7 /* powerbutton.png in Resources */ = {isa = PBXBuildFile; fileRef = 5AE8210B2B81DC9000015BA7 /* powerbutton.png */; };
+		5AE8210E2B81F88000015BA7 /* Thing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE8210D2B81F88000015BA7 /* Thing.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,7 @@
 		5AE570FA2B81B622006114D1 /* ClickableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClickableView.swift; sourceTree = "<group>"; };
 		5AE570FC2B81C37A006114D1 /* DetailScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailScene.swift; sourceTree = "<group>"; };
 		5AE8210B2B81DC9000015BA7 /* powerbutton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = powerbutton.png; sourceTree = "<group>"; };
+		5AE8210D2B81F88000015BA7 /* Thing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Thing.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +59,7 @@
 		5AE570C82B816B35006114D1 = {
 			isa = PBXGroup;
 			children = (
+				5AE8210D2B81F88000015BA7 /* Thing.swift */,
 				5AE570FC2B81C37A006114D1 /* DetailScene.swift */,
 				5AE570D32B816B35006114D1 /* Immersed IoT */,
 				5AE570D22B816B35006114D1 /* Products */,
@@ -185,6 +188,7 @@
 				5AE570F72B8181F1006114D1 /* TagNode.swift in Sources */,
 				5AE570DC2B816B35006114D1 /* ViewController.swift in Sources */,
 				5AE570F92B819D36006114D1 /* ThingView.swift in Sources */,
+				5AE8210E2B81F88000015BA7 /* Thing.swift in Sources */,
 				5AE570D52B816B35006114D1 /* AppDelegate.swift in Sources */,
 				5AE570FD2B81C37A006114D1 /* DetailScene.swift in Sources */,
 				5AE570F52B817B9D006114D1 /* SKWorldTransform.mm in Sources */,
